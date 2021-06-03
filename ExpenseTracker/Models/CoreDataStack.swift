@@ -1,0 +1,40 @@
+//
+//  CoreDataStack.swift
+//  ExpenseTracker
+//
+//  Created by Melody Chou on 6/3/21.
+//  Copyright © 2021 INFO449. All rights reserved.
+//
+
+import CoreData
+
+// a class to save persisting user input data
+class CoreDataStack {
+    
+    private let containerName: String
+    var viewContext: NSManagedObjectContext { persistentContainer.viewContext }
+    
+    private lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: containerName)
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                print(error.localizedDescription)
+            }
+            print(storeDescription)
+        })
+        return container
+    }()
+    
+    init(containerName: String) {
+        self.containerName = containerName
+        _ = persistentContainer
+    }
+}
+
+extension NSManagedObjectContext {
+    
+    func saveContext() throws {
+        guard hasChanges else { return }
+        try save()
+    }
+}
