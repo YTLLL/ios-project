@@ -45,11 +45,11 @@ struct LogListView: View {
                     HStack(spacing: 16) {
                         CategoryImageView(category: log.categoryEnum)
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(log.nameText).font(.headline)
-                            Text(log.dateText).font(.subheadline)
+                            Text(log.nameText).font(.headline).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            Text(log.dateText).font(.subheadline).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                         }
                         Spacer()
-                        Text(log.amountText).font(.headline)
+                        Text(log.amountText).font(.headline).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                     }
                 }
                 .sheet(item: $logToEdit) { item in
