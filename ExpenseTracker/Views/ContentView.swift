@@ -7,47 +7,63 @@
 //
 
 import SwiftUI
+import Firebase
 
 // App content with different tabs and views
 struct ContentView: View {
-    var body: some View {
-        TabView {
-            DashboardTabView()
-                .tabItem {
-                    VStack {
-                        Text("Home").foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-                        Image(systemName: "house.fill").renderingMode(.template)
-                    }
-            }
-            .tag(0)
-            
-            LogsTabView()
-                .tabItem {
-                    VStack {
-                        Text("Transactions").foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-                        Image(systemName: "text.badge.plus").renderingMode(.template)
-                    }
-            }
-            .tag(1)
-            
-            SettingsTabView()
-                .tabItem {
-                    VStack {
-                        Text("Settings").foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-                        Image(systemName: "gear").renderingMode(.template)
-                    }
-                }
-            .tag(2)
+    @EnvironmentObject var session: SessionStore
 
-        }.accentColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
+    func getUser () {
+      session.listen()
     }
+
     
-    init() {
-        UISegmentedControl.appearance().selectedSegmentTintColor = hexStringToUIColor(hex:"#cf99f0")
-        //UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.systemYellow], for: .normal)
-        //UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        
+    var body: some View {
+        Group {
+            if (session.loggedIn) {
+                
+                TabView {
+                    DashboardTabView()
+                        .tabItem {
+                            VStack {
+                                Text("Home").foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
+                                Image(systemName: "house.fill").renderingMode(.template)
+                            }
+                    }
+                    .tag(0)
+                    
+                    LogsTabView()
+                        .tabItem {
+                            VStack {
+                                Text("Transactions").foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
+                                Image(systemName: "text.badge.plus").renderingMode(.template)
+                            }
+                    }
+                    .tag(1)
+                    
+                    SettingsTabView()
+                        .tabItem {
+                            VStack {
+                                Text("Settings").foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
+                                Image(systemName: "gear").renderingMode(.template)
+                            }
+                        }
+                    .tag(2)
+
+                }.accentColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
+            } else {
+                AuthenticationScreen()
+            }
+        }.onAppear(perform: getUser)
     }
+
+    
+//    init() {
+//        UISegmentedControl.appearance().selectedSegmentTintColor = hexStringToUIColor(hex:"#cf99f0")
+//        //UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.systemYellow], for: .normal)
+//        //UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+//
+//    }
     
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -75,5 +91,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(SessionStore())
     }
 }

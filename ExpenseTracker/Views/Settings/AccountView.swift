@@ -41,11 +41,27 @@ struct AccountView : View {
 }
 
 struct AccountSettingsView : View {
+    @State var loading = false
+    @State var error = false
+    @EnvironmentObject var session: SessionStore
+
+    func signOut () {
+        loading = true
+        error = false
+        session.signOut()
+    }
+    
     var body: some View {
         HStack {
-            Text("UNDER DEVELOPMENT")
-                .foregroundColor(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-                .font(.system(size: 18))
+            NavigationLink(destination: ContentView()) {
+                CustomButton(
+                    label: "Sign Out",
+                    action: signOut,
+                    loading: loading
+                    )
+                    .padding()
+            }
+            
         }
     }
 }

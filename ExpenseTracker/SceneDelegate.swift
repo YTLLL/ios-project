@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let contentView = ContentView()
             .environment(\.managedObjectContext, coreDataStack.viewContext)
+            .environmentObject(SessionStore())
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
