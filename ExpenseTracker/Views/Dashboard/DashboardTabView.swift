@@ -56,13 +56,7 @@ struct DashboardTabView: View {
 
                 if categoriesSum != nil {
                     List {
-                        Text("Breakdown").font(.headline).foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))).listRowBackground(Color(#colorLiteral(red: 0.6296737591, green: 0.5162123076, blue: 1, alpha: 1)))
-                        ForEach(self.categoriesSum!) {
-                            let category = $0
-                            NavigationLink(destination: BreakdownCategoryView(selectedCategories: Set(arrayLiteral: category.category), categoryName:category.category.rawValue)) {
-                                CategoryRowView(category: category.category, sum: category.sum)
-                            }
-                        }.listRowBackground(Color(#colorLiteral(red: 0.9494244456, green: 0.9222272635, blue: 0.9746300578, alpha: 1)))
+                        
                     }
                     
                 } else {

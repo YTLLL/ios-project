@@ -73,13 +73,6 @@ struct SearchBar: UIViewRepresentable {
         return searchBar
     }
     
-    func makeUIViewXX(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
-        let searchBar = UISearchBar(frame: .zero)
-        searchBar.placeholder = placeholder
-        searchBar.delegate = context.coordinator
-        searchBar.enablesReturnKeyAutomatically = false
-        return searchBar
-    }
     
     func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
         uiView.text = text

@@ -15,11 +15,6 @@ struct PieSlice: Identifiable {
     var value: Double
     var normalizedValue: Double
     var color: Color
-    var startDeg1: Double
-    var endDeg2: Double
-    var value3: Double
-    var normalizedValue4: Double
-    var color5: Color
 }
 
 public struct PieChartCell : View {
